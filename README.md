@@ -19,7 +19,18 @@ render lag causes flicker and dropped frames during teleop, which risks corrupti
 SLAM scan-matching. The working setup for this environment is **headless Gazebo
 server (`gz sim -s` / `headless:=True`) + RViz2** for visualization. This is the
 permanent approach going forward, not a workaround for one session.
+## TurtleBot3 dependency (not vendored — pinned via vcstool)
 
+This repo does not include the ROBOTIS turtlebot3 packages directly.
+To pull them in:
+
+    sudo apt install python3-vcstool   # if not already installed
+    mkdir -p ~/turtlebot3_ws/src
+    vcs import ~/turtlebot3_ws/src < deps/turtlebot3.repos
+    cd ~/turtlebot3_ws
+    rosdep install --from-paths src --ignore-src -r -y
+    colcon build
+    source install/setup.bash
 ## Status
 
 ### ✅ Done
